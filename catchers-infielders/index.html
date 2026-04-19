@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中日ドラゴンズ 2026 捕手・内野手完全データ</title>
+<style>
+  :root {
+    --dragons-navy: #00205B;
+    --dragons-blue: #003087;
+    --dragons-gold: #C8A84B;
+    --dragons-gold-light: #F0D080;
+    --bg: #F4F6FA;
+    --card-bg: #FFFFFF;
+    --text: #1A1A2E;
+    --muted: #6B7A99;
+    --border: #D8E0EE;
+    --good: #1B7A3E;
+    --bad: #B22222;
+    --warn: #D97706;
+    --injured: #FF4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Kaku Gothic Pro','Meiryo','Yu Gothic',sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  header { background: linear-gradient(135deg, var(--dragons-navy) 0%, var(--dragons-blue) 60%, #004FBF 100%); position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+  .header-top { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 3px solid var(--dragons-gold); flex-wrap: wrap; gap: 10px; }
+  .header-logo { display: flex; align-items: center; gap: 14px; }
+  .logo-dragon { width: 52px; height: 52px; background: var(--dragons-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 0 0 3px rgba(200,168,75,0.4); flex-shrink: 0; }
+  .header-title h1 { color: #fff; font-size: 1.3rem; font-weight: 900; letter-spacing: 0.04em; line-height: 1.2; }
+  .header-title .subtitle { color: var(--dragons-gold-light); font-size: 0.75rem; letter-spacing: 0.1em; margin-top: 2px; }
+  .header-badge { background: var(--dragons-gold); color: var(--dragons-navy); padding: 5px 14px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; white-space: nowrap; }
+  .nav-tabs { display: flex; padding: 0 16px; gap: 2px; background: rgba(0,0,0,0.2); overflow-x: auto; }
+  .nav-tab { padding: 10px 16px; color: rgba(255,255,255,0.65); font-size: 0.8rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; user-select: none; }
+  .nav-tab:hover { color: rgba(255,255,255,0.9); }
+  .nav-tab.active { color: var(--dragons-gold); border-bottom-color: var(--dragons-gold); background: rgba(200,168,75,0.08); }
+
+  .content { max-width: 1280px; margin: 0 auto; padding: 24px 16px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .section-header h2 { font-size: 1.2rem; font-weight: 800; color: var(--dragons-navy); }
+  .section-header .tag { background: var(--dragons-navy); color: white; font-size: 0.68rem; padding: 3px 10px; border-radius: 12px; font-weight: 700; letter-spacing: 0.05em; }
+
+  .alert { background: #FFF3CD; border-left: 4px solid var(--warn); padding: 11px 15px; border-radius: 0 8px 8px 0; margin-bottom: 18px; font-size: 0.8rem; color: #7A5A00; }
+  .alert-danger { background: #FFE8E8; border-left-color: var(--injured); color: #7A0000; }
+
+  .stat-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .stat-card { background: var(--card-bg); border-radius: 12px; padding: 16px 18px; box-shadow: 0 2px 8px rgba(0,32,91,0.08); border-top: 4px solid var(--dragons-navy); }
+  .stat-card .label { font-size: 0.7rem; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .stat-card .value { font-size: 1.7rem; font-weight: 900; color: var(--dragons-navy); line-height: 1; }
+  .stat-card .value.gold { color: var(--dragons-gold); }
+  .stat-card .player { font-size: 0.8rem; color: var(--dragons-blue); font-weight: 600; margin-top: 4px; }
+
+  .table-wrap { background: var(--card-bg); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,32,91,0.08); overflow: hidden; margin-bottom: 24px; }
+  .table-title { background: var(--dragons-navy); color: var(--dragons-gold); padding: 11px 18px; font-size: 0.83rem; font-weight: 800; letter-spacing: 0.08em; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+  thead th { background: #EEF1F8; color: var(--dragons-navy); padding: 9px 10px; text-align: center; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.04em; border-bottom: 2px solid var(--border); white-space: nowrap; }
+  thead th:first-child, thead th:nth-child(2), thead th:nth-child(3) { text-align: left; }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:hover { background: #F0F4FF; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 9px 10px; text-align: center; vertical-align: middle; }
+  tbody td:first-child, tbody td:nth-child(2), tbody td:nth-child(3) { text-align: left; }
+
+  .num-badge { display: inline-block; background: var(--dragons-navy); color: white; font-size: 0.68rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; min-width: 26px; text-align: center; }
+  .num-badge.gold { background: var(--dragons-gold); color: var(--dragons-navy); }
+  .player-name { font-weight: 700; color: var(--dragons-navy); }
+  .player-name small { font-weight: 400; color: var(--muted); font-size: 0.7rem; display: block; }
+  .pos-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 1px 6px; border-radius: 8px; margin-left: 4px; }
+  .pos-c { background: #DBEAFE; color: #1E40AF; }
+  .pos-if { background: #D1FAE5; color: #065F46; }
+  .pos-for { background: #FEF3C7; color: #92400E; }
+
+  .ba-best { color: #B8860B; font-weight: 900; }
+  .ba-good { color: var(--good); font-weight: 800; }
+  .ba-ok   { color: #2563EB; font-weight: 700; }
+  .ba-mid  { color: var(--warn); font-weight: 600; }
+  .ba-bad  { color: var(--bad); font-weight: 600; }
+
+  .injured-row { background: #FFF4F4 !important; }
+  .injured-badge { background: var(--injured); color: white; font-size: 0.62rem; font-weight: 700; padding: 2px 6px; border-radius: 10px; margin-left: 4px; }
+  .ikgun-badge { background: #6B7A99; color: white; font-size: 0.62rem; font-weight: 700; padding: 2px 6px; border-radius: 10px; margin-left: 4px; }
+  .sodatsu-badge { background: #8B5CF6; color: white; font-size: 0.62rem; font-weight: 700; padding: 2px 6px; border-radius: 10px; margin-left: 4px; }
+  .new-badge { background: #059669; color: white; font-size: 0.62rem; font-weight: 700; padding: 2px 6px; border-radius: 10px; margin-left: 4px; }
+
+  .rank-num { font-size: 1.1rem; font-weight: 900; color: var(--muted); width: 28px; text-align: center; flex-shrink: 0; }
+  .rank-num.r1 { color: #B8860B; }
+  .rank-num.r2 { color: #6B7A99; }
+  .rank-num.r3 { color: #CD7F32; }
+
+  /* PROFILE CARDS */
+  .profile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .profile-card { background: var(--card-bg); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,32,91,0.08); overflow: hidden; }
+  .profile-header { background: linear-gradient(135deg, var(--dragons-navy), var(--dragons-blue)); padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .profile-num { font-size: 2rem; font-weight: 900; color: var(--dragons-gold); line-height: 1; min-width: 48px; text-align: center; }
+  .profile-name { color: white; }
+  .profile-name .kanji { font-size: 1.05rem; font-weight: 800; }
+  .profile-name .reading { font-size: 0.7rem; color: rgba(255,255,255,0.7); margin-top: 1px; }
+  .profile-name .pos { font-size: 0.68rem; color: var(--dragons-gold-light); margin-top: 2px; letter-spacing: 0.05em; }
+  .profile-body { padding: 14px 16px; }
+  .profile-row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 0.8rem; }
+  .profile-row:last-child { border-bottom: none; }
+  .profile-row .pkey { color: var(--muted); font-weight: 600; font-size: 0.72rem; }
+  .profile-row .pval { font-weight: 700; color: var(--text); text-align: right; }
+  .career-box { background: #F4F6FA; border-radius: 8px; padding: 10px 12px; margin-top: 10px; }
+  .career-box .career-title { font-size: 0.68rem; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 6px; }
+  .career-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .career-stat { text-align: center; }
+  .career-stat .cs-val { font-size: 1rem; font-weight: 800; color: var(--dragons-navy); }
+  .career-stat .cs-key { font-size: 0.62rem; color: var(--muted); }
+
+  /* INJURY CARDS */
+  .injury-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .injury-card { background: var(--card-bg); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,32,91,0.08); overflow: hidden; }
+  .injury-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+  .injury-header .iname { font-weight: 800; color: var(--dragons-navy); font-size: 1rem; }
+  .injury-status-active { background: var(--injured); color: white; font-size: 0.68rem; font-weight: 700; padding: 3px 10px; border-radius: 12px; }
+  .injury-status-ok { background: var(--good); color: white; font-size: 0.68rem; font-weight: 700; padding: 3px 10px; border-radius: 12px; }
+  .injury-timeline { padding: 12px 16px; }
+  .injury-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #F0F0F0; }
+  .injury-item:last-child { border-bottom: none; }
+  .injury-year { font-size: 0.72rem; font-weight: 700; color: var(--dragons-gold); min-width: 40px; }
+  .injury-desc { font-size: 0.78rem; color: var(--text); line-height: 1.4; }
+  .injury-desc .severity-high { color: var(--bad); font-weight: 700; }
+  .injury-desc .severity-mid { color: var(--warn); font-weight: 600; }
+
+  .sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  @media (max-width: 700px) { .sub-grid { grid-template-columns: 1fr; } }
+
+  footer { text-align: center; padding: 24px 16px; color: var(--muted); font-size: 0.72rem; border-top: 1px solid var(--border); margin-top: 24px; }
+  footer a { color: var(--dragons-blue); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .header-title h1 { font-size: 1rem; }
+    .profile-grid { grid-template-columns: 1fr; }
+    .injury-grid { grid-template-columns: 1fr; }
+    table { font-size: 0.75rem; }
+    thead th, tbody td { padding: 7px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="header-logo">
+      <div class="logo-dragon">🐉</div>
+      <div class="header-title">
+        <h1>中日ドラゴンズ 捕手・内野手完全データ</h1>
+        <div class="subtitle">2026 SEASON ／ CATCHERS &amp; INFIELDERS DATABASE</div>
+      </div>
+    </div>
+    <div class="header-badge">2026.4.18 更新</div>
+  </div>
+  <nav class="nav-tabs">
+    <div class="nav-tab active" onclick="showTab('ranking')">📊 成績ランキング</div>
+    <div class="nav-tab" onclick="showTab('stats')">⚾ 今季成績一覧</div>
+    <div class="nav-tab" onclick="showTab('profile')">👤 選手プロフィール</div>
+    <div class="nav-tab" onclick="showTab('injury')">🏥 故障情報</div>
+  </nav>
+</header>
+
+<main class="content">
+
+<!-- ===== TAB 1: RANKING ===== -->
+<section id="ranking" class="section active">
+  <div class="section-header">
+    <h2>📊 成績ランキング</h2>
+    <span class="tag">2026年公式戦 4/18時点</span>
+  </div>
+
+  <div class="alert alert-danger">
+    ⚠️ <strong>最新情報：</strong>福永裕基が4月18日に頭部外傷で救急搬送。経過観察中につき以降の出場は未定。
+  </div>
+
+  <div class="stat-cards">
+    <div class="stat-card">
+      <div class="label">打率 No.1（捕手）</div>
+      <div class="value">.391</div>
+      <div class="player">石伊雄太 #9 ／ 6試合</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">打率 No.1（内野手）</div>
+      <div class="value">.381</div>
+      <div class="player">高橋周平 #3 ／ 9試合</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">本塁打 No.1</div>
+      <div class="value gold">3本</div>
+      <div class="player">M.サノー #23 ／ 15試合</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">打点 No.1</div>
+      <div class="value gold">8点</div>
+      <div class="player">M.サノー #23 ／ 15試合</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">出塁率 No.1</div>
+      <div class="value">.458</div>
+      <div class="player">高橋周平 #3 ／ 9試合</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">安打数 No.1</div>
+      <div class="value">20本</div>
+      <div class="player">福永裕基 #7 ／ 18試合</div>
+    </div>
+  </div>
+
+  <div class="sub-grid">
+    <div class="table-wrap">
+      <div class="table-title">🥊 捕手 打率ランキング</div>
+      <table>
+        <thead><tr><th>順位</th><th>選手名</th><th>#</th><th>試合</th><th>打率</th><th>HR</th><th>打点</th></tr></thead>
+        <tbody>
+          <tr><td class="rank-num r1">1</td><td class="player-name">石伊雄太</td><td><span class="num-badge">9</span></td><td>6</td><td class="ba-best">.391</td><td>0</td><td>2</td></tr>
+          <tr><td class="rank-num r2">2</td><td class="player-name">木下拓哉</td><td><span class="num-badge">35</span></td><td>11</td><td class="ba-good">.306</td><td>0</td><td>1</td></tr>
+          <tr><td class="rank-num r3">3</td><td class="player-name">花田旭</td><td><span class="num-badge">57</span></td><td>10</td><td class="ba-ok">.263</td><td>1</td><td>5</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <div class="table-title">⚡ 内野手 打率ランキング（10打数以上）</div>
+      <table>
+        <thead><tr><th>順位</th><th>選手名</th><th>#</th><th>試合</th><th>打率</th><th>HR</th><th>打点</th></tr></thead>
+        <tbody>
+          <tr><td class="rank-num r1">1</td><td class="player-name">高橋周平</td><td><span class="num-badge">3</span></td><td>9</td><td class="ba-best">.381</td><td>0</td><td>2</td></tr>
+          <tr><td class="rank-num r2">2</td><td class="player-name">村松開人</td><td><span class="num-badge">5</span></td><td>18</td><td class="ba-good">.310</td><td>0</td><td>5</td></tr>
+          <tr><td class="rank-num r3">3</td><td class="player-name">福永裕基</td><td><span class="num-badge">7</span></td><td>18</td><td class="ba-ok">.294</td><td>1</td><td>5</td></tr>
+          <tr><td class="rank-num">4</td><td class="player-name">阿部寿樹</td><td><span class="num-badge">48</span></td><td>9</td><td class="ba-ok">.250</td><td>0</td><td>1</td></tr>
+          <tr><td class="rank-num">5</td><td class="player-name">ボスラー</td><td><span class="num-badge">24</span></td><td>9</td><td class="ba-mid">.229</td><td>0</td><td>2</td></tr>
+          <tr><td class="rank-num">6</td><td class="player-name">M.サノー</td><td><span class="num-badge">23</span></td><td>15</td><td class="ba-mid">.217</td><td>3</td><td>8</td></tr>
+          <tr><td class="rank-num">7</td><td class="player-name">田中幹也</td><td><span class="num-badge">2</span></td><td>16</td><td class="ba-bad">.155</td><td>0</td><td>3</td></tr>
+          <tr><td class="rank-num">8</td><td class="player-name">カリステ</td><td><span class="num-badge">4</span></td><td>12</td><td class="ba-bad">.130</td><td>0</td><td>1</td></tr>
+          <tr><td class="rank-num">9</td><td class="player-name">辻本倫太郎</td><td><span class="num-badge">0</span></td><td>7</td><td class="ba-bad">.100</td><td>0</td><td>0</td></tr>
+          <tr><td class="rank-num">10</td><td class="player-name">石川昂弥</td><td><span class="num-badge">25</span></td><td>2</td><td class="ba-bad">.000</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-title">💪 長打・出塁ランキング（内野手・捕手 総合）</div>
+    <table>
+      <thead><tr><th>#</th><th>選手名</th><th>ポジ</th><th>試合</th><th>打率</th><th>HR</th><th>打点</th><th>出塁率</th><th>長打率</th><th>OPS</th></tr></thead>
+      <tbody>
+        <tr><td><span class="num-badge">9</span></td><td class="player-name">石伊雄太</td><td><span class="pos-badge pos-c">捕</span></td><td>6</td><td class="ba-best">.391</td><td>0</td><td>2</td><td>.417</td><td>.565</td><td class="ba-best">.982</td></tr>
+        <tr><td><span class="num-badge">3</span></td><td class="player-name">高橋周平</td><td><span class="pos-badge pos-if">内</span></td><td>9</td><td class="ba-best">.381</td><td>0</td><td>2</td><td>.458</td><td>.381</td><td class="ba-best">.839</td></tr>
+        <tr><td><span class="num-badge">5</span></td><td class="player-name">村松開人</td><td><span class="pos-badge pos-if">内</span></td><td>18</td><td class="ba-good">.310</td><td>0</td><td>5</td><td>.391</td><td>.414</td><td class="ba-good">.805</td></tr>
+        <tr><td><span class="num-badge">35</span></td><td class="player-name">木下拓哉</td><td><span class="pos-badge pos-c">捕</span></td><td>11</td><td class="ba-good">.306</td><td>0</td><td>1</td><td>.306</td><td>.361</td><td class="ba-ok">.667</td></tr>
+        <tr><td><span class="num-badge">7</span></td><td class="player-name">福永裕基</td><td><span class="pos-badge pos-if">内</span></td><td>18</td><td class="ba-ok">.294</td><td>1</td><td>5</td><td>.360</td><td>.368</td><td class="ba-ok">.728</td></tr>
+        <tr><td><span class="num-badge">23</span></td><td class="player-name">M.サノー</td><td><span class="pos-badge pos-if">内</span></td><td>15</td><td class="ba-mid">.217</td><td>3</td><td>8</td><td>.280</td><td>.435</td><td class="ba-ok">.715</td></tr>
+        <tr><td><span class="num-badge">57</span></td><td class="player-name">花田旭</td><td><span class="pos-badge pos-c">捕</span></td><td>10</td><td class="ba-ok">.263</td><td>1</td><td>5</td><td>.275</td><td>.395</td><td class="ba-ok">.670</td></tr>
+        <tr><td><span class="num-badge">48</span></td><td class="player-name">阿部寿樹</td><td><span class="pos-badge pos-if">内</span></td><td>9</td><td class="ba-ok">.250</td><td>0</td><td>1</td><td>.333</td><td>.375</td><td class="ba-ok">.708</td></tr>
+        <tr><td><span class="num-badge">24</span></td><td class="player-name">J.ボスラー</td><td><span class="pos-badge pos-if">内</span></td><td>9</td><td class="ba-mid">.229</td><td>0</td><td>2</td><td>.282</td><td>.314</td><td class="ba-mid">.596</td></tr>
+        <tr><td><span class="num-badge">2</span></td><td class="player-name">田中幹也</td><td><span class="pos-badge pos-if">内</span></td><td>16</td><td class="ba-bad">.155</td><td>0</td><td>3</td><td>.197</td><td>.172</td><td class="ba-bad">.369</td></tr>
+        <tr><td><span class="num-badge">4</span></td><td class="player-name">O.カリステ</td><td><span class="pos-badge pos-if">内</span></td><td>12</td><td class="ba-bad">.130</td><td>0</td><td>1</td><td>.231</td><td>.130</td><td class="ba-bad">.361</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== TAB 2: STATS ===== -->
+<section id="stats" class="section">
+  <div class="section-header">
+    <h2>⚾ 今季成績一覧</h2>
+    <span class="tag">2026公式戦 4/18時点 NPB.jp公式</span>
+  </div>
+
+  <div class="alert">
+    📌 データはNPB.jp公式より検証済み。一軍出場なし選手は2軍調整中または未登録。
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-title">🧤 捕手（Catchers）2026年打撃成績</div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>選手名</th><th>投打</th>
+          <th>試合</th><th>打数</th><th>安打</th><th>打率</th>
+          <th>HR</th><th>打点</th><th>出塁率</th><th>長打率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="num-badge">9</span></td>
+          <td class="player-name">石伊雄太<small>いしい ゆうた</small></td>
+          <td>右/右</td>
+          <td>6</td><td>23</td><td>9</td>
+          <td class="ba-best">.391</td><td>0</td><td>2</td><td>.417</td><td>.565</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">35</span></td>
+          <td class="player-name">木下拓哉<small>きのした たくや</small></td>
+          <td>右/右</td>
+          <td>11</td><td>36</td><td>11</td>
+          <td class="ba-good">.306</td><td>0</td><td>1</td><td>.306</td><td>.361</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">57</span></td>
+          <td class="player-name">花田旭<small>はなだ あさひ</small> <span class="new-badge">新人</span></td>
+          <td>右/右</td>
+          <td>10</td><td>38</td><td>10</td>
+          <td class="ba-ok">.263</td><td>1</td><td>5</td><td>.275</td><td>.395</td>
+        </tr>
+        <tr class="injured-row">
+          <td><span class="num-badge">39</span></td>
+          <td class="player-name">宇佐見真吾<small>うさみ しんご</small></td>
+          <td>右/右</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中（一軍出場なし）</td>
+        </tr>
+        <tr class="injured-row">
+          <td><span class="num-badge">49</span></td>
+          <td class="player-name">加藤匠馬<small>かとう たくま</small></td>
+          <td>右/右</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中（一軍出場なし）</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">58</span></td>
+          <td class="player-name">石橋康太<small>いしばし こうた</small></td>
+          <td>右/右</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中（一軍出場なし）</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">43</span></td>
+          <td class="player-name">味谷大誠<small>みや たいせい</small></td>
+          <td>右/右</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中（一軍出場なし）</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge sodatsu-badge" style="background:#8B5CF6;">206</span></td>
+          <td class="player-name">山浅龍之介<small>やまあさ りゅうのすけ</small> <span class="sodatsu-badge">育成</span></td>
+          <td>右/左</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">育成選手</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge" style="background:#8B5CF6;">215</span></td>
+          <td class="player-name">日渡騰輝<small>ひわたり とうき</small> <span class="sodatsu-badge">育成</span></td>
+          <td>右/左</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">育成選手</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-title">🏟 内野手（Infielders）2026年打撃成績</div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>選手名</th><th>投打</th>
+          <th>試合</th><th>打数</th><th>安打</th><th>打率</th>
+          <th>HR</th><th>打点</th><th>出塁率</th><th>長打率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="num-badge">3</span></td>
+          <td class="player-name">高橋周平<small>たかはし しゅうへい</small></td>
+          <td>右/左</td>
+          <td>9</td><td>21</td><td>8</td>
+          <td class="ba-best">.381</td><td>0</td><td>2</td><td>.458</td><td>.381</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">5</span></td>
+          <td class="player-name">村松開人<small>むらまつ かいと</small></td>
+          <td>右/左</td>
+          <td>18</td><td>58</td><td>18</td>
+          <td class="ba-good">.310</td><td>0</td><td>5</td><td>.391</td><td>.414</td>
+        </tr>
+        <tr class="injured-row">
+          <td><span class="num-badge">7</span></td>
+          <td class="player-name">福永裕基<small>ふくなが ゆうき</small> <span class="injured-badge">要経過観察</span></td>
+          <td>右/右</td>
+          <td>18</td><td>68</td><td>20</td>
+          <td class="ba-ok">.294</td><td>1</td><td>5</td><td>.360</td><td>.368</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">48</span></td>
+          <td class="player-name">阿部寿樹<small>あべ としき</small></td>
+          <td>右/右</td>
+          <td>9</td><td>8</td><td>2</td>
+          <td class="ba-ok">.250</td><td>0</td><td>1</td><td>.333</td><td>.375</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">24</span></td>
+          <td class="player-name">J.ボスラー<small>Jason Vosler</small></td>
+          <td>右/左</td>
+          <td>9</td><td>35</td><td>8</td>
+          <td class="ba-mid">.229</td><td>0</td><td>2</td><td>.282</td><td>.314</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge gold">23</span></td>
+          <td class="player-name">M.サノー<small>Miguel Sanó</small></td>
+          <td>右/右</td>
+          <td>15</td><td>46</td><td>10</td>
+          <td class="ba-mid">.217</td><td>3</td><td>8</td><td>.280</td><td>.435</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">2</span></td>
+          <td class="player-name">田中幹也<small>たなか みきや</small></td>
+          <td>右/右</td>
+          <td>16</td><td>58</td><td>9</td>
+          <td class="ba-bad">.155</td><td>0</td><td>3</td><td>.197</td><td>.172</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">4</span></td>
+          <td class="player-name">O.カリステ<small>Orlando Calixte</small></td>
+          <td>右/右</td>
+          <td>12</td><td>23</td><td>3</td>
+          <td class="ba-bad">.130</td><td>0</td><td>1</td><td>.231</td><td>.130</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">0</span></td>
+          <td class="player-name">辻本倫太郎<small>つじもと りんたろう</small></td>
+          <td>右/左</td>
+          <td>7</td><td>10</td><td>1</td>
+          <td class="ba-bad">.100</td><td>0</td><td>0</td><td>.100</td><td>.100</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">25</span></td>
+          <td class="player-name">石川昂弥<small>いしかわ たかや</small></td>
+          <td>右/右</td>
+          <td>2</td><td>4</td><td>0</td>
+          <td class="ba-bad">.000</td><td>0</td><td>0</td><td>.200</td><td>.000</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">45</span></td>
+          <td class="player-name">土田龍空<small>つちだ りくう</small></td>
+          <td>右/左</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">31</span></td>
+          <td class="player-name">森駿太<small>もり しゅんた</small></td>
+          <td>右/左</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">56</span></td>
+          <td class="player-name">新保茉良<small>しんぽ まお</small> <span class="new-badge">新人</span></td>
+          <td>右/左</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">60</span></td>
+          <td class="player-name">山本泰寛<small>やまもと やすひろ</small></td>
+          <td>右/右</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">63</span></td>
+          <td class="player-name">板山祐太郎<small>いたやま ゆうたろう</small></td>
+          <td>右/左</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">65</span></td>
+          <td class="player-name">知野直人<small>ちの なおと</small></td>
+          <td>右/右</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中</td>
+        </tr>
+        <tr>
+          <td><span class="num-badge">95</span></td>
+          <td class="player-name">C.ロドリゲス<small>Cristián Rodríguez</small></td>
+          <td>右/右</td>
+          <td colspan="8" style="color:var(--muted);font-style:italic;">2軍調整中</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== TAB 3: PROFILE ===== -->
+<section id="profile" class="section">
+  <div class="section-header">
+    <h2>👤 選手プロフィール</h2>
+    <span class="tag">捕手・内野手 全選手</span>
+  </div>
+
+  <div class="section-header" style="margin-top:8px;"><h2 style="font-size:1rem;color:var(--muted);">━ 捕手（Catchers）</h2></div>
+  <div class="profile-grid">
+
+    <!-- 石伊雄太 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">9</div>
+        <div class="profile-name">
+          <div class="kanji">石伊 雄太</div>
+          <div class="reading">いしい ゆうた / ISHII YUTA</div>
+          <div class="pos">捕手 ／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">三重県</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2000年8月18日（25歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">178cm ／ 84kg</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2024年 中日D4位</span></div>
+        <div class="profile-row"><span class="pkey">2025年実績</span><span class="pval">76試合マスク・盗塁阻止率.413</span></div>
+        <div class="career-box">
+          <div class="career-title">2026今季成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">6</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.391</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">0</div><div class="cs-key">HR</div></div>
+            <div class="career-stat"><div class="cs-val">2</div><div class="cs-key">打点</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 木下拓哉 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">35</div>
+        <div class="profile-name">
+          <div class="kanji">木下 拓哉</div>
+          <div class="reading">きのした たくや / KINOSHITA TAKUYA</div>
+          <div class="pos">捕手 ／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">高知県高知市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1991年12月18日（34歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">183cm ／ 95kg</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2015年 中日D3位（富士大）</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">647</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.245</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">37</div><div class="cs-key">HR</div></div>
+            <div class="career-stat"><div class="cs-val">通算</div><div class="cs-key">〜2025</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 宇佐見真吾 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">39</div>
+        <div class="profile-name">
+          <div class="kanji">宇佐見 真吾</div>
+          <div class="reading">うさみ しんご / USAMI SHINGO</div>
+          <div class="pos">捕手 ／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">千葉県松戸市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1993年6月4日（32歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">181cm ／ 88kg</span></div>
+        <div class="profile-row"><span class="pkey">入団経緯</span><span class="pval">2015年D4位（巨人）→日本ハム→中日(2023〜)</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">450</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.232</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">19</div><div class="cs-key">HR</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 加藤匠馬 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">49</div>
+        <div class="profile-name">
+          <div class="kanji">加藤 匠馬</div>
+          <div class="reading">かとう たくま / KATOH TAKUMA</div>
+          <div class="pos">捕手 ／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">三重県松阪市（旧飯南町）</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1992年4月29日（33歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">175cm ／ 85kg</span></div>
+        <div class="profile-row"><span class="pkey">入団経緯</span><span class="pval">2014年D5位（中日）→ロッテ→中日(2023〜)</span></div>
+        <div class="profile-row"><span class="pkey">特徴</span><span class="pval">「加藤バズーカ」二塁送球1.8秒台</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">350</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.180</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">3</div><div class="cs-key">HR</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 石橋康太 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">58</div>
+        <div class="profile-name">
+          <div class="kanji">石橋 康太</div>
+          <div class="reading">いしばし こうた / ISHIBASHI KOTA</div>
+          <div class="pos">捕手 ／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">千葉県四街道市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2000年12月7日（25歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">181cm ／ 94kg</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2018年 中日D4位（関東一高）</span></div>
+        <div class="profile-row"><span class="pkey">特徴</span><span class="pval">遠投115m・強肩捕手</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">114</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.195</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">2</div><div class="cs-key">HR</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 花田旭 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">57</div>
+        <div class="profile-name">
+          <div class="kanji">花田 旭</div>
+          <div class="reading">はなだ あさひ / HANADA ASAHI</div>
+          <div class="pos">捕手 ／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">大阪府東大阪市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2003年4月23日（22歳）</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2025年 中日D6位（東洋大）</span></div>
+        <div class="profile-row"><span class="pkey">出身校</span><span class="pval">大阪桐蔭高→東洋大</span></div>
+        <div class="profile-row"><span class="pkey">特徴</span><span class="pval">50m 6.1秒・打球速度150km/h超</span></div>
+        <div class="career-box">
+          <div class="career-title">2026今季成績（ルーキーイヤー）</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">10</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.263</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">1</div><div class="cs-key">HR</div></div>
+            <div class="career-stat"><div class="cs-val">5</div><div class="cs-key">打点</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 味谷大誠 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">43</div>
+        <div class="profile-name">
+          <div class="kanji">味谷 大誠</div>
+          <div class="reading">みや たいせい / MIYA TAISEI</div>
+          <div class="pos">捕手 ／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">大阪府和泉市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2003年6月14日（22歳）</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2021年 中日D4位（花咲徳栄高）</span></div>
+        <div class="profile-row"><span class="pkey">状況</span><span class="pval">2軍でキャリア積み上げ中</span></div>
+      </div>
+    </div>
+
+    <!-- 山浅龍之介 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num" style="font-size:1.4rem;">206</div>
+        <div class="profile-name">
+          <div class="kanji">山浅 龍之介 <span class="sodatsu-badge">育成</span></div>
+          <div class="reading">やまあさ りゅうのすけ</div>
+          <div class="pos">捕手 ／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">秋田県由利本荘市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2004年4月21日（21歳）</span></div>
+      </div>
+    </div>
+
+    <!-- 日渡騰輝 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num" style="font-size:1.4rem;">215</div>
+        <div class="profile-name">
+          <div class="kanji">日渡 騰輝 <span class="sodatsu-badge">育成</span></div>
+          <div class="reading">ひわたり とうき</div>
+          <div class="pos">捕手 ／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">茨城県龍ヶ崎市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2004年9月20日（21歳）</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2023年 育成D（常総学院高）</span></div>
+      </div>
+    </div>
+
+  </div><!-- end catchers grid -->
+
+  <div class="section-header" style="margin-top:8px;"><h2 style="font-size:1rem;color:var(--muted);">━ 内野手（Infielders）</h2></div>
+  <div class="profile-grid">
+
+    <!-- 村松開人 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">5</div>
+        <div class="profile-name">
+          <div class="kanji">村松 開人</div>
+          <div class="reading">むらまつ かいと / MURAMATSU KAITO</div>
+          <div class="pos">内野手（遊撃）／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">静岡県牧之原市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2001年1月6日（25歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">172cm ／ 80kg</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">261</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.233</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">4</div><div class="cs-key">HR</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 田中幹也 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">2</div>
+        <div class="profile-name">
+          <div class="kanji">田中 幹也</div>
+          <div class="reading">たなか みきや / TANAKA MIKIYA</div>
+          <div class="pos">内野手（二塁・遊撃）／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">神奈川県愛甲郡愛川町</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2000年11月28日（25歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">166cm ／ 68kg</span></div>
+        <div class="profile-row"><span class="pkey">特徴</span><span class="pval">球界最速クラスの二塁到達タイム</span></div>
+        <div class="career-box">
+          <div class="career-title">主な故障歴</div>
+          <div class="career-stats" style="flex-direction:column;gap:4px;">
+            <div style="font-size:0.75rem;color:var(--bad);">2023 右肩脱臼（バンカート手術）</div>
+            <div style="font-size:0.75rem;color:var(--warn);">2024 左足首捻挫</div>
+            <div style="font-size:0.75rem;color:var(--bad);">2025 左手有鈎骨骨折（摘出手術）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 石川昂弥 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">25</div>
+        <div class="profile-name">
+          <div class="kanji">石川 昂弥</div>
+          <div class="reading">いしかわ たかや / ISHIKAWA TAKAYA</div>
+          <div class="pos">内野手（三塁・一塁）／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">愛知県半田市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2001年6月22日（24歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">186cm ／ 95kg</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2019年 D1位（3球団競合、東邦高）</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績（〜2025）</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">276</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.239</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">23</div><div class="cs-key">HR</div></div>
+            <div class="career-stat"><div class="cs-val">95</div><div class="cs-key">打点</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 辻本倫太郎 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">0</div>
+        <div class="profile-name">
+          <div class="kanji">辻本 倫太郎</div>
+          <div class="reading">つじもと りんたろう / TSUJIMOTO RINTARO</div>
+          <div class="pos">内野手（遊撃）／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">北海道札幌市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2001年8月11日（24歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">168cm ／ 75kg</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2023年 中日D3位（仙台大）</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">42</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.141</div><div class="cs-key">打率</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 高橋周平 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">3</div>
+        <div class="profile-name">
+          <div class="kanji">高橋 周平</div>
+          <div class="reading">たかはし しゅうへい / TAKAHASHI SHUHEI</div>
+          <div class="pos">内野手（三塁・一塁）／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">神奈川県藤沢市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1994年1月18日（32歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">180cm ／ 90kg</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2011年 中日D1位（東海大相模高）</span></div>
+        <div class="profile-row"><span class="pkey">2026今季</span><span class="pval">9試合 .381 2打点（スタメン活躍中）</span></div>
+      </div>
+    </div>
+
+    <!-- 福永裕基 -->
+    <div class="profile-card injured-row">
+      <div class="profile-header">
+        <div class="profile-num">7</div>
+        <div class="profile-name">
+          <div class="kanji">福永 裕基 <span class="injured-badge">経過観察中</span></div>
+          <div class="reading">ふくなが ゆうき / FUKUNAGA YUKI</div>
+          <div class="pos">内野手（一塁・三塁）／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">滋賀県東近江市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1996年9月16日（29歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">180cm ／ 87kg</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2022年 中日D7位（日本大）</span></div>
+        <div class="career-box">
+          <div class="career-title">⚠️ 最新：4/18 頭部外傷・救急搬送</div>
+          <div class="career-stats" style="flex-direction:column;gap:4px;">
+            <div style="font-size:0.75rem;color:var(--warn);">2025 右膝内側側副靭帯損傷</div>
+            <div style="font-size:0.75rem;color:var(--warn);">2025 左手関節骨折</div>
+            <div style="font-size:0.75rem;color:var(--bad);font-weight:700;">2026/4/18 頭部外傷・救急搬送</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 土田龍空 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">45</div>
+        <div class="profile-name">
+          <div class="kanji">土田 龍空</div>
+          <div class="reading">つちだ りくう / TSUCHIDA RIKUU</div>
+          <div class="pos">内野手（遊撃）／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">滋賀県米原市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2002年12月30日（23歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">180cm ／ 80kg</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2020年 中日D3位（近江高）</span></div>
+      </div>
+    </div>
+
+    <!-- カリステ -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">4</div>
+        <div class="profile-name">
+          <div class="kanji">O. カリステ</div>
+          <div class="reading">Orlando Calixte / オルランド・カリステ</div>
+          <div class="pos">内野手（遊撃・三塁）／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">ドミニカ共和国</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1992年2月3日（33歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">184cm ／ 87kg</span></div>
+        <div class="profile-row"><span class="pkey">経歴</span><span class="pval">ロイヤルズ→巨人→メキシコ→中日(2023〜)</span></div>
+      </div>
+    </div>
+
+    <!-- 阿部寿樹 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">48</div>
+        <div class="profile-name">
+          <div class="kanji">阿部 寿樹</div>
+          <div class="reading">あべ としき / ABE TOSHIKI</div>
+          <div class="pos">内野手（二塁・三塁）／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">岩手県一関市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1989年12月3日（36歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">185cm ／ 85kg</span></div>
+        <div class="profile-row"><span class="pkey">経歴</span><span class="pval">中日(〜2021)→楽天→中日(2026〜)</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">706</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.255</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">51</div><div class="cs-key">HR</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- サノー -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num gold" style="color:var(--dragons-gold);">23</div>
+        <div class="profile-name">
+          <div class="kanji">M. サノー</div>
+          <div class="reading">Miguel Sanó / ミゲル・サノー</div>
+          <div class="pos">内野手（三塁・一塁）／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">ドミニカ共和国 サン・ペドロ・デ・マコリス</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1993年5月11日（32歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">196cm ／ 126kg</span></div>
+        <div class="profile-row"><span class="pkey">経歴</span><span class="pval">ツインズ(2015-22)→エンゼルス(2024)→中日(2026〜)</span></div>
+        <div class="profile-row"><span class="pkey">MLB実績</span><span class="pval">722試合 .233 164本 2017年AS選出</span></div>
+        <div class="career-box">
+          <div class="career-title">2026今季成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">15</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.217</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val" style="color:var(--dragons-gold);">3</div><div class="cs-key">HR</div></div>
+            <div class="career-stat"><div class="cs-val" style="color:var(--dragons-gold);">8</div><div class="cs-key">打点</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ボスラー -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">24</div>
+        <div class="profile-name">
+          <div class="kanji">J. ボスラー</div>
+          <div class="reading">Jason Vosler / ジェイソン・ボスラー</div>
+          <div class="pos">内野手・外野手 ／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">アメリカ ニューヨーク州</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1993年9月6日（32歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">186cm ／ 98kg</span></div>
+        <div class="profile-row"><span class="pkey">経歴</span><span class="pval">カブス傘下→パドレス→巨人→中日(2025〜)</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB成績（2025年）</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">122</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.261</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">13</div><div class="cs-key">HR</div></div>
+            <div class="career-stat"><div class="cs-val">58</div><div class="cs-key">打点</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 森駿太 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">31</div>
+        <div class="profile-name">
+          <div class="kanji">森 駿太</div>
+          <div class="reading">もり しゅんた / MORI SHUNTA</div>
+          <div class="pos">内野手（遊撃・三塁）／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">神奈川県横浜市青葉区</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2006年12月25日（19歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">188cm ／ 93kg</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2024年 中日D3位（桐光学園高）</span></div>
+        <div class="profile-row"><span class="pkey">高校実績</span><span class="pval">高校通算48本塁打</span></div>
+        <div class="career-box">
+          <div class="career-title">プロ通算（〜2025）</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">6</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.200</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">1</div><div class="cs-key">HR</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 新保茉良 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">56</div>
+        <div class="profile-name">
+          <div class="kanji">新保 茉良</div>
+          <div class="reading">しんぽ まお / SHIMPO MAO</div>
+          <div class="pos">内野手 ／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">大阪府藤井寺市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2003年11月29日（22歳）</span></div>
+        <div class="profile-row"><span class="pkey">入団</span><span class="pval">2025年 中日D5位（東北福祉大）</span></div>
+      </div>
+    </div>
+
+    <!-- 山本泰寛 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">60</div>
+        <div class="profile-name">
+          <div class="kanji">山本 泰寛</div>
+          <div class="reading">やまもと やすひろ / YAMAMOTO YASUHIRO</div>
+          <div class="pos">内野手（ユーティリティ）／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">東京都荒川区</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1993年10月10日（32歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">176cm ／ 76kg</span></div>
+        <div class="profile-row"><span class="pkey">経歴</span><span class="pval">2015年D5位（巨人）→阪神→中日(2024〜)</span></div>
+        <div class="profile-row"><span class="pkey">特記</span><span class="pval">セ・リーグ3球団経験（史上初）</span></div>
+      </div>
+    </div>
+
+    <!-- 板山祐太郎 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">63</div>
+        <div class="profile-name">
+          <div class="kanji">板山 祐太郎</div>
+          <div class="reading">いたやま ゆうたろう / ITAYAMA YUTARO</div>
+          <div class="pos">内野手・外野手 ／ 右投左打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">神奈川県横浜市鶴見区</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1994年3月27日（32歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">180cm ／ 88kg</span></div>
+        <div class="profile-row"><span class="pkey">経歴</span><span class="pval">2015年D6位（阪神）→中日(2024〜)</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">286</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.216</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">6</div><div class="cs-key">HR</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 知野直人 -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">65</div>
+        <div class="profile-name">
+          <div class="kanji">知野 直人</div>
+          <div class="reading">ちの なおと / CHINO NAOTO</div>
+          <div class="pos">内野手（二塁・遊撃・三塁）／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">新潟県三条市</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">1999年2月16日（27歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">182cm ／ 85kg</span></div>
+        <div class="profile-row"><span class="pkey">経歴</span><span class="pval">2018年D6位（DeNA）→2025現役D→中日</span></div>
+        <div class="profile-row"><span class="pkey">特徴</span><span class="pval">俊足・走攻守三拍子、ユーティリティ</span></div>
+      </div>
+    </div>
+
+    <!-- ロドリゲス -->
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-num">95</div>
+        <div class="profile-name">
+          <div class="kanji">C. ロドリゲス</div>
+          <div class="reading">Cristián Rodríguez / クリスチャン・ロドリゲス</div>
+          <div class="pos">内野手（遊撃）／ 右投右打</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-row"><span class="pkey">出身地</span><span class="pval">キューバ ビジャクラーラ州</span></div>
+        <div class="profile-row"><span class="pkey">生年月日</span><span class="pval">2002年3月31日（24歳）</span></div>
+        <div class="profile-row"><span class="pkey">体格</span><span class="pval">189cm ／ 90kg</span></div>
+        <div class="profile-row"><span class="pkey">経歴</span><span class="pval">2023年育成入団→2024年3月支配下</span></div>
+        <div class="career-box">
+          <div class="career-title">NPB通算成績</div>
+          <div class="career-stats">
+            <div class="career-stat"><div class="cs-val">43</div><div class="cs-key">試合</div></div>
+            <div class="career-stat"><div class="cs-val">.157</div><div class="cs-key">打率</div></div>
+            <div class="career-stat"><div class="cs-val">強肩</div><div class="cs-key">守備特化</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end infielders grid -->
+</section>
+
+<!-- ===== TAB 4: INJURY ===== -->
+<section id="injury" class="section">
+  <div class="section-header">
+    <h2>🏥 故障情報</h2>
+    <span class="tag">2026.4.18 現在</span>
+  </div>
+
+  <div class="alert alert-danger">
+    🚨 <strong>緊急情報：</strong>福永裕基（#7）が4月18日（土）試合中に頭部を負傷し救急搬送されました。今後の出場は経過次第です。
+  </div>
+
+  <div class="injury-grid">
+
+    <!-- 福永裕基 -->
+    <div class="injury-card">
+      <div class="injury-header">
+        <div>
+          <span class="num-badge" style="margin-right:6px;">7</span>
+          <span class="iname">福永 裕基</span>
+        </div>
+        <span class="injury-status-active">経過観察中</span>
+      </div>
+      <div class="injury-timeline">
+        <div class="injury-item">
+          <div class="injury-year">2025</div>
+          <div class="injury-desc"><span class="severity-mid">右膝内側側副靭帯損傷</span>（シーズン途中離脱）</div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2025</div>
+          <div class="injury-desc"><span class="severity-mid">左手関節骨折</span>（再離脱）</div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2026</div>
+          <div class="injury-desc"><span class="severity-high">頭部外傷・救急搬送（4/18）</span>　試合中の打席内でのアクシデント。当面の出場は未定。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 田中幹也 -->
+    <div class="injury-card">
+      <div class="injury-header">
+        <div>
+          <span class="num-badge" style="margin-right:6px;">2</span>
+          <span class="iname">田中 幹也</span>
+        </div>
+        <span class="injury-status-ok">一軍出場中</span>
+      </div>
+      <div class="injury-timeline">
+        <div class="injury-item">
+          <div class="injury-year">2023</div>
+          <div class="injury-desc"><span class="severity-high">右肩関節唇損傷・バンカート手術</span>（長期離脱）</div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2024</div>
+          <div class="injury-desc"><span class="severity-mid">左足首捻挫</span></div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2025</div>
+          <div class="injury-desc"><span class="severity-high">左手有鈎骨骨折（摘出手術）</span>（再離脱）</div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2026</div>
+          <div class="injury-desc">出場中も打率.155と本来の打撃未回復</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 石川昂弥 -->
+    <div class="injury-card">
+      <div class="injury-header">
+        <div>
+          <span class="num-badge" style="margin-right:6px;">25</span>
+          <span class="iname">石川 昂弥</span>
+        </div>
+        <span class="injury-status-ok">一軍出場中</span>
+      </div>
+      <div class="injury-timeline">
+        <div class="injury-item">
+          <div class="injury-year">2020</div>
+          <div class="injury-desc"><span class="severity-mid">左肩腱板炎</span></div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2021</div>
+          <div class="injury-desc"><span class="severity-mid">左尺骨骨折</span></div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2022</div>
+          <div class="injury-desc"><span class="severity-high">左膝前十字靭帯不全損傷・手術</span>（長期離脱）</div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2025</div>
+          <div class="injury-desc"><span class="severity-mid">左脇腹肉離れ</span></div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2026</div>
+          <div class="injury-desc">開幕出場も出場機会少なく本格回復待ち</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 木下拓哉 -->
+    <div class="injury-card">
+      <div class="injury-header">
+        <div>
+          <span class="num-badge" style="margin-right:6px;">35</span>
+          <span class="iname">木下 拓哉</span>
+        </div>
+        <span class="injury-status-ok">一軍出場中</span>
+      </div>
+      <div class="injury-timeline">
+        <div class="injury-item">
+          <div class="injury-year">2019</div>
+          <div class="injury-desc"><span class="severity-mid">左膝故障</span>（登板機会激減）</div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2023</div>
+          <div class="injury-desc"><span class="severity-high">右手大菱形骨骨折・手術</span>（シーズン後半離脱）</div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2026</div>
+          <div class="injury-desc">復調し開幕正捕手として出場（.306 11試合）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 高橋周平 -->
+    <div class="injury-card">
+      <div class="injury-header">
+        <div>
+          <span class="num-badge" style="margin-right:6px;">3</span>
+          <span class="iname">高橋 周平</span>
+        </div>
+        <span class="injury-status-ok">一軍出場中</span>
+      </div>
+      <div class="injury-timeline">
+        <div class="injury-item">
+          <div class="injury-year">2024</div>
+          <div class="injury-desc"><span class="severity-mid">左肘故障</span>（シーズン長期離脱）</div>
+        </div>
+        <div class="injury-item">
+          <div class="injury-year">2026</div>
+          <div class="injury-desc">復帰後好調を維持（.381 出塁率.458）</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end injury grid -->
+</section>
+
+</main>
+
+<footer>
+  <p>データ出典：<a href="https://npb.jp/bis/2026/stats/idb1_d.html" target="_blank">NPB.jp 公式</a> ／ <a href="https://dragons.jp" target="_blank">中日ドラゴンズ公式</a> ／ Wikipedia（各選手）</p>
+  <p style="margin-top:6px;">2026年4月18日時点。成績は公式戦のみ（オープン戦除く）。</p>
+  <p style="margin-top:6px;">🐉 中日ドラゴンズ 捕手・内野手データベース ／ <a href="pitchers/index.html">投手編はこちら</a></p>
+</footer>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
