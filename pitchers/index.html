@@ -1583,7 +1583,7 @@
       <!-- 大野 -->
       <div class="profile-card">
         <div class="profile-head">
-          <div class="profile-num">22</div>
+          <div class="profile-num">11</div>
           <div class="profile-head-info">
             <h3>大野 雄大</h3>
             <div class="yomi">おおの ゆうだい / 左投左打</div>
@@ -1616,7 +1616,7 @@
       <!-- 柳 -->
       <div class="profile-card">
         <div class="profile-head">
-          <div class="profile-num">17</div>
+          <div class="profile-num">21</div>
           <div class="profile-head-info">
             <h3>柳 裕也</h3>
             <div class="yomi">やなぎ ゆうや / 右投右打</div>
@@ -1680,7 +1680,7 @@
       <!-- 金丸 -->
       <div class="profile-card">
         <div class="profile-head">
-          <div class="profile-num">21</div>
+          <div class="profile-num">17</div>
           <div class="profile-head-info">
             <h3>金丸 夢斗</h3>
             <div class="yomi">かねまる ゆめと / 左投左打</div>
@@ -1955,7 +1955,7 @@
             <div class="meta-item"><div class="meta-label">生年月日</div><div class="meta-value">1996年10月24日（29歳）</div></div>
             <div class="meta-item"><div class="meta-label">出身地</div><div class="meta-value">宮城県仙台市（福島市生まれ）</div></div>
             <div class="meta-item"><div class="meta-label">体格</div><div class="meta-value">189cm / 100kg</div></div>
-            <div class="meta-item"><div class="meta-label">ドラフト</div><div class="meta-value">2018年ドラフト1位</div></div>
+            <div class="meta-item"><div class="meta-label">ドラフト</div><div class="meta-value">2018年ドラフト2位</div></div>
           </div>
           <div class="injury-tag">🩹 <div>
             <b>怪我歴（多数）</b><br>
@@ -2201,6 +2201,15 @@
     event.target.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  // プロフィールを背番号順に並び替え
+  document.querySelectorAll('.profile-grid').forEach(grid => {
+    const cards = [...grid.querySelectorAll(':scope > .profile-card')];
+    cards.sort((a, b) => {
+      const n = el => parseInt(el.querySelector('.profile-num').textContent.trim()) || 999;
+      return n(a) - n(b);
+    });
+    cards.forEach(c => grid.appendChild(c));
+  });
 </script>
 
 </body>
